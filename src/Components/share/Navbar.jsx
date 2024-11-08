@@ -1,6 +1,14 @@
-
+import { Link, NavLink } from "react-router-dom";
+import { IoMdNotificationsOutline } from "react-icons/io";
+import logoImage from '../../assets/logo.jpg'
 
 const Navbar = () => {
+
+  const navLink=<>
+  <li><NavLink to='/' className={({isActive})=>isActive? 'btn btn-ghost bg-orange-300':'btn btn-ghost bg-white'}> Home </NavLink></li>
+  <li><NavLink to='/membership' className={({isActive})=>isActive?'btn btn-ghost bg-orange-300':'btn btn-ghost bg-white'}> MemberShip </NavLink></li>
+  
+  </>
     return (
         <div>
             <div className="navbar bg-base-100">
@@ -23,36 +31,24 @@ const Navbar = () => {
       <ul
         tabIndex={0}
         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-        <li><a>Item 1</a></li>
-        <li>
-          <a>Parent</a>
-          <ul className="p-2">
-            <li><a>Submenu 1</a></li>
-            <li><a>Submenu 2</a></li>
-          </ul>
-        </li>
-        <li><a>Item 3</a></li>
+        {navLink}
       </ul>
     </div>
-    <a className="btn btn-ghost text-xl">daisyUI</a>
+    <div className="avatar">
+  <div className="mask mask-hexagon w-14">
+    <img src={logoImage} />
   </div>
-  <div className="navbar-center hidden lg:flex">
-    <ul className="menu menu-horizontal px-1">
-      <li><a>Item 1</a></li>
-      <li>
-        <details>
-          <summary>Parent</summary>
-          <ul className="p-2">
-            <li><a>Submenu 1</a></li>
-            <li><a>Submenu 2</a></li>
-          </ul>
-        </details>
-      </li>
-      <li><a>Item 3</a></li>
+</div>
+    <a className="btn btn-ghost text-xl text-orange-300">ASCEND-FORUM</a>
+  </div>
+  <div className="navbar-center hidden lg:flex gap-4">
+    <ul className="menu menu-horizontal px-1 gap-4">
+      {navLink}
     </ul>
   </div>
-  <div className="navbar-end">
-    <a className="btn">Button</a>
+  <div className="navbar-end gap-3">
+    <a className="text-2xl" > <IoMdNotificationsOutline /> </a>
+    <Link to='/login' className="btn bg-orange-300">Join Us</Link>
   </div>
 </div>
             
