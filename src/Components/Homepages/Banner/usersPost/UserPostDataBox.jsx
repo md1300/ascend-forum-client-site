@@ -2,7 +2,7 @@
 import PropTypes from 'prop-types'
 const UserPostDataBox = ({postData}) => {
     const {title,description,category,tags,post_time,upvote_count,downvote_count,upvote_icon,downvote_icon,views,comments_count,author}=postData;
-    console.log(postData)
+    // console.log(postData)
     
     
     return (

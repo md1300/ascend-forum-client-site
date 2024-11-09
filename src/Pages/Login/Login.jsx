@@ -1,12 +1,12 @@
 import { useForm, } from "react-hook-form"
 import useAuth from "../../hook/useAuth";
 import { Link } from "react-router-dom";
-import { getRedirectResult } from "firebase/auth/cordova";
+
 
 
 
 const Login = () => {
-  const {signin,googleSignUp}=useAuth()
+  const {signin,googleSignUp,loading}=useAuth()
   // console.log(signin)
    const {register, formState: { errors },handleSubmit,}=useForm()
 
@@ -32,7 +32,7 @@ const Login = () => {
     }
    }
 
-
+  if(loading) return <div className="flex justify-center pt-40 "><span className="loading loading-spinner text-success "></span></div>
     return (
         <div className="w-1/2 mx-auto  min-h-screen">
         <div className="hero-content flex-col gap-6">
@@ -66,7 +66,7 @@ const Login = () => {
               </div>
             </form>
             <div className="px-24 mb-4">
-              <button onClick={handleGoogleSignUp} className="btn bg-orange-100 text-orange-500"> signUp with google </button>
+              <button disabled={loading? true : false} onClick={handleGoogleSignUp} className="btn bg-orange-100 text-orange-500"> signUp with google </button>
             </div>
             <div>
             <p className="px-24">if you do not have already an account <Link to='/signup' className="btn btn-link text-orange-500 ">sign up</Link></p>

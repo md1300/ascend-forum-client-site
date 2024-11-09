@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 
 const Signup = () => {
-  const {signup,updateUsersProfile,googleSignUp}=useAuth()
+  const {signup,updateUsersProfile,googleSignUp,loading}=useAuth()
     const {register,handleSubmit,formState:{errors}}=useForm()
 
     const onSubmit=async(data)=>{
@@ -41,6 +41,8 @@ const Signup = () => {
         console.log(error.message)
       }
      }
+     
+     if(loading) return <div className="flex justify-center pt-40 "><span className="loading loading-spinner text-success "></span></div>
 
     return (
         <div className="w-1/2 mx-auto  min-h-screen">
