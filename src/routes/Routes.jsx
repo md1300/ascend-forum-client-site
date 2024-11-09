@@ -4,6 +4,8 @@ import Home from "../Pages/Homepage/Home";
 import MemberShip from "../Pages/MemberShip/MemberShip";
 import Login from "../Pages/Login/Login";
 import Signup from "../Pages/Signup/Signup";
+import Dashboard from "../Layout/Dashboard";
+import Statistic from "../Pages/Dashboard/Common/Statistic";
 
 
 const router = createBrowserRouter([
@@ -28,6 +30,16 @@ const router = createBrowserRouter([
     {
       path:'/signup',
       element:<Signup/>
+    },
+    {
+      path:'dashboard',
+      element:<Dashboard/>,
+      children:[
+       { 
+        index:true,
+        element:<Statistic/>
+}
+      ]
     }
   ]);
 export default router;
