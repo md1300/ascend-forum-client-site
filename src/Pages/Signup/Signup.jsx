@@ -4,9 +4,16 @@ import useAuth from "../../hook/useAuth";
 import { Link } from "react-router-dom";
 
 
+
 const Signup = () => {
-  const {signup,updateUsersProfile,googleSignUp,loading}=useAuth()
-    const {register,handleSubmit,formState:{errors}}=useForm()
+  const {signup,updateUsersProfile,googleSignUp,loading,setLoading}=useAuth();
+    const {register,handleSubmit,formState:{errors}}=useForm();
+ 
+
+
+ 
+ 
+   
 
     const onSubmit=async(data)=>{
        const {email,password,name,photo}=data ;
@@ -25,11 +32,14 @@ const Signup = () => {
        const {user}=await signup(email,password)
          console.log(user)
          await updateUsersProfile(name,image_url)
-
+       
         }
         catch(error){
           console.log(error.message)
-        }   
+        } 
+        finally{
+          setLoading(false)
+        }  
     }
 
     const handleGoogleSignUp=async()=>{
@@ -39,6 +49,9 @@ const Signup = () => {
       }
       catch(error){
         console.log(error.message)
+      }
+      finally{
+        setLoading(false)
       }
      }
      
