@@ -7,6 +7,8 @@ import Signup from "../Pages/Signup/Signup";
 import Dashboard from "../Layout/Dashboard";
 import Statistic from "../Pages/Dashboard/Common/Statistic";
 import AddPost from "../Pages/Dashboard/Users/AddPost";
+import MyProfile from "../Pages/Dashboard/Users/MyProfile";
+import MyPosts from "../Pages/Dashboard/Users/MyPosts";
 
 
 const router = createBrowserRouter([
@@ -36,6 +38,7 @@ const router = createBrowserRouter([
     path: 'dashboard',
     element: <Dashboard />,
     children: [
+      //  ---------- route for users --------------
       {
         index: true,
         element: <Statistic />
@@ -43,7 +46,15 @@ const router = createBrowserRouter([
       {
         path:'add-post',
         element:<AddPost/>
-      }
+      },
+      {
+        path:'user-profile',
+        element:<MyProfile/>
+      },
+      {
+        path:'user-posts',
+        element:<MyPosts/>
+      },
     ]
   }
 ]);

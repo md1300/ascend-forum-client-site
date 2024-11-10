@@ -32,7 +32,7 @@ const AddPost = () => {
     }
 console.log(postInfo)
     try{
-         const {data}=await axios.post(`${import.meta.env.VITE_authDomain}/posts`,postInfo)
+         const {data}=await axios.post(`${import.meta.env.VITE_API_URL}/posts`,postInfo)
          console.log(data)
     }
     catch(error){
