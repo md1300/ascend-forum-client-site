@@ -7,7 +7,7 @@ const Categories = () => {
     return (
         <div className="flex flex-col gap-3 p-10">
             {
-                categoriesData.map((category,index)=><Link key={index}>{category}</Link>)
+                categoriesData.map((category,index)=><Link key={index}>{category.label}</Link>)
             }
         </div>
     );
