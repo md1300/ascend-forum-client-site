@@ -30,7 +30,7 @@ const AddPost = () => {
         category:selectedOption.label,
         comment_count:0,
     }
-console.log(postInfo)
+// console.log(postInfo)
     try{
          const {data}=await axios.post(`${import.meta.env.VITE_API_URL}/posts`,postInfo)
          console.log(data)

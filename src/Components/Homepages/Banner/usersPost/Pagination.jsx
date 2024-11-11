@@ -11,9 +11,9 @@ const Pagination = ({handlePaginationButton,currentPage,pages,numberOfpages}) =>
     </button>
 
     {
-        pages.map(btnNum=><a key={btnNum}  className={`hidden ${currentPage===btnNum? 'bg-blue-400 text-white':''} px-4 py-2 mx-1 transition-colors duration-300 transform  rounded-md sm:inline hover:bg-blue-500  hover:text-white`}>
+        pages.map(btnNum=><button key={btnNum}  onClick={()=>handlePaginationButton(btnNum)}  className={`hidden ${currentPage===btnNum? 'bg-blue-400 text-white':''} px-4 py-2 mx-1 transition-colors duration-300 transform  rounded-md sm:inline hover:bg-blue-500  hover:text-white`}>
          {btnNum}
-        </a>)
+        </button>)
     }
 
     <button disabled={currentPage===numberOfpages} onClick={()=>handlePaginationButton(currentPage+1)} href="#" className="flex items-center justify-center px-4 py-2 mx-1 text-gray-700 transition-colors duration-300 transform bg-white rounded-md rtl:-scale-x-100 dark:bg-gray-800 dark:text-gray-200 hover:bg-blue-500 dark:hover:bg-blue-500 hover:text-white dark:hover:text-gray-200">

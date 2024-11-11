@@ -10,6 +10,7 @@ import AddPost from "../Pages/Dashboard/Users/AddPost";
 import MyProfile from "../Pages/Dashboard/Users/MyProfile";
 import MyPosts from "../Pages/Dashboard/Users/MyPosts";
 import PopularPost from "../Pages/PopularPost/PopularPost";
+import DetailsPost from "../Pages/DetailsPost/DetailsPost";
 
 
 const router = createBrowserRouter([
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
         element: <MemberShip />
       },
     ]
+  },
+  {
+    path:'/post-details/:id',
+    element:<DetailsPost/>
   },
   {
     path: '/login',

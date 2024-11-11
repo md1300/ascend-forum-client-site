@@ -7,6 +7,7 @@ import {Link} from 'react-router-dom'
 
 
 const UsersPostData = () => {
+    const [loading,setloading]=useState(false)
     const axiosPublic=useAxiosPublic()
     // ------------------
     const [currentPage,setCurrentPage]=useState(1)
@@ -18,25 +19,40 @@ const UsersPostData = () => {
            queryKey:['posts-Data'],
            queryFn:async()=>{
             const {data}=await axiosPublic(`/posts?page=${currentPage}&&size=${itemsPerPage}`)
-            console.log(data.totalCount)
+            console.log(data)
             setCountPage(data.totalCount)
             return data.result
            }
     })
 
    const handlePaginationButton=async(value)=>{
-    console.log(value)
-    setCurrentPage(value)
+    
+    // console.log(value)
+    try{
+        setloading(true)
+      await  setCurrentPage(value)
+    }
+    catch(error){
+        console.log(error.message)
+    }
+    finally{
+        setloading(false)
+    }
+
+   
    }
+
+   
 
  const numberOfpages=Math.ceil(countPage/itemsPerPage)
 
  const pages=[...Array(numberOfpages).keys().map(element=>element+1)]
 
- console.log(pages)
+//  console.log(pages)
 
     if(isLoading)return <div className="flex justify-center pt-40 "><span className="loading loading-spinner text-success "></span></div>
-    console.log(postsData)
+    // console.log(postsData)
+    if(loading) return  <div className="flex justify-center pt-40 "><span className="loading loading-spinner text-success "></span></div>
     
 
     return (
