@@ -28,7 +28,7 @@ const AddPost = () => {
         upVote:0,
         downVote:0,
         category:selectedOption.label,
-
+        comment_count:0,
     }
 console.log(postInfo)
     try{

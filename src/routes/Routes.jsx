@@ -9,6 +9,7 @@ import Statistic from "../Pages/Dashboard/Common/Statistic";
 import AddPost from "../Pages/Dashboard/Users/AddPost";
 import MyProfile from "../Pages/Dashboard/Users/MyProfile";
 import MyPosts from "../Pages/Dashboard/Users/MyPosts";
+import PopularPost from "../Pages/PopularPost/PopularPost";
 
 
 const router = createBrowserRouter([
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
   {
     path: '/signup',
     element: <Signup />
+  },
+  {
+    path:'/popular-post',
+    element:<PopularPost/>
   },
   {
     path: 'dashboard',
