@@ -6,24 +6,33 @@ import { useState } from 'react';
 import {Link} from 'react-router-dom'
 
 
-const UsersPostData = () => {
+const UsersPostData = ({setPostsData,postsData,search,}) => {
     const [loading,setloading]=useState(false)
     const axiosPublic=useAxiosPublic()
     // ------------------
     const [currentPage,setCurrentPage]=useState(1)
     const [itemsPerPage,setItemsPerPage]=useState(5)
     const [countPage,setCountPage]=useState(0)
+    // const search='Business & Finance'
+    // ---------------
+// const [postsData,setPostsData]=useState([])
+    // -------------------
+
+   
 
 
-    const {data:postsData,isLoading}=useQuery({
-           queryKey:['posts-Data'],
+    const {data:postData=[],isLoading}=useQuery({
+           queryKey:['posts-Data',search],
            queryFn:async()=>{
-            const {data}=await axiosPublic(`/posts?page=${currentPage}&&size=${itemsPerPage}`)
+            const {data}=await axiosPublic(`/posts?page=${currentPage}&&size=${itemsPerPage}&&search=${search}`)
             console.log(data)
             setCountPage(data.totalCount)
+            setPostsData(data.result)
+          
             return data.result
            }
     })
+    // -----------------------pagination work ---------------
 
    const handlePaginationButton=async(value)=>{
     

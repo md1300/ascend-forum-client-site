@@ -19,7 +19,7 @@ const PopularPost = () => {
     
     return (
         <div>
-            <h1>this is popular post page</h1>
+            {/* <h1>this is popular post page</h1> */}
             <div className='grid grid-cols-1 md:grid-cols-3 gap-7'>
             {
                 popularPosts.map((postData,index)=><UserPostDataBox className='text-rose-700' key={index} postData={postData}></UserPostDataBox>)
