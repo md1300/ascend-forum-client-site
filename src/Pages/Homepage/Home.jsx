@@ -8,25 +8,45 @@ const Home = () => {
     const [postsData,setPostsData]=useState([])
     const [searchText,setSearchText]=useState([])
     const [search,setSearch]=useState([])
+    const [category,setCategory]=useState([])
+    // ------------------------------------------------------
+    const [currentPage,setCurrentPage]=useState(1)
+    const [itemsPerPage,setItemsPerPage]=useState(5)
+    const [countPage,setCountPage]=useState(0)
+    // -------------------------------------------------------
     
-
-
-    const handleSearchSubmit=(e)=>{
+    const handleSearchSubmit=async(e)=>{
         e.preventDefault()
-        setSearch(searchText)
+        try{
+            setSearch(searchText)
+            setCurrentPage(1)
+            setCategory('')
+        }
+        catch(error){
+                  console.log(error.message)
+        }       
     }
-
-    // console.log(search)
-  
-
+    // -----------------------------
+    const handleCatagorySort=async(value)=>{
+        try{
+            setCategory(value)
+            setCurrentPage(1)
+            setSearch('')
+        }
+        catch(error){
+            console.log(error)
+        }
+    }
     
-    
+    // console.log(category)  
 
     return (
         <>
         <div className='flex gap-3 '>
             <div className='bg-orange-300 '>
-                <Categories />
+                <Categories 
+                handleCatagorySort={handleCatagorySort}
+                category={category} />
             </div>
             <div className='flex-1'>
                 <Banner 
@@ -40,6 +60,12 @@ const Home = () => {
             postsData={postsData}
             setPostsData={setPostsData}
             search={search}
+            category={category}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            itemsPerPage={itemsPerPage}
+            countPage={countPage}
+            setCountPage={setCountPage}
            />
         </div>
         </>

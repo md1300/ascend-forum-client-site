@@ -5,40 +5,15 @@ import {
     DialogPanel,
     DialogTitle,
   } from '@headlessui/react'
-  import { Fragment, useState } from 'react'
-import useAxiosPublic from '../../hook/useAxiosPublic';
-const CommentModal = ({closeModal,isOpen,post_Title}) => {
-  const [comment,setComment]=useState('')
-  const axiosPublic=useAxiosPublic()
+  import { Fragment } from 'react'
+import { Link } from 'react-router-dom';
 
-  const handleCommentText=(value)=>{
-    setComment(value)
-  }
-
-
-//  --------handle comment button and save comment in commentsCollection in db ----------
-  const handleCommentButton=async()=>{
-    console.log('comment text : ',comment)
-    const commentData={
-      comment:comment,
-      post_title:post_Title,
-      upVote:0,
-      downVote:0,
-    }
-    try{
-           const {data}=await axiosPublic.post('/comment',commentData)
-           console.log(data)
-    }
-    catch(error){
-      console.log(error)
-    }
-  }
+const AlertModal = ({alertCloseModal,alertIsOpen}) => {
     return (
         <div>
-            {/* show(isOpen) */}
-             <Transition appear  show={isOpen}  as={Fragment}>
+             <Transition appear  show={alertIsOpen}  as={Fragment}>
                 {/* onClose = {closeModal} */}
-        <Dialog as='div' className='relative z-10' onClose = {closeModal} >
+        <Dialog as='div' className='relative z-10' onClose = {alertCloseModal} >
           <TransitionChild
             as={Fragment}
             enter='ease-out duration-300'
@@ -67,29 +42,25 @@ const CommentModal = ({closeModal,isOpen,post_Title}) => {
                     as='h3'
                     className='text-lg font-medium leading-6 text-gray-900'
                   >
-                    comment bellow
+                   alert
                   </DialogTitle>
                   <div className='mt-2'>
-                  <textarea onChange={(e)=>handleCommentText(e.target.value)}  className="textarea textarea-bordered" name='comment' placeholder="comment here"></textarea>
+                  <p>you do not log in . at first log in then comment</p>
                   </div>
                   <hr className='mt-8 ' />
                   <div className='flex mt-2 justify-around'>
-                    <button
-                    onClick={()=>{
-                      handleCommentButton(),
-                        closeModal()
-                    }}
+                    <Link to='/login'                  
                       type='button'
                       className='inline-flex justify-center rounded-md border border-transparent bg-red-100 px-4 py-2 text-sm font-medium text-red-900 hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2'
                     >
-                      comment now
-                    </button>
+                      log in
+                    </Link>
                     <button
                       type='button'
                       className='inline-flex justify-center rounded-md border border-transparent bg-green-100 px-4 py-2 text-sm font-medium text-green-900 hover:bg-green-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2'
                     //   use closeModal function ------
                     //   onClick use
-                    onClick={closeModal}
+                    onClick={alertCloseModal}
                     >
                       No
                     </button>
@@ -100,8 +71,8 @@ const CommentModal = ({closeModal,isOpen,post_Title}) => {
           </div>
         </Dialog>
       </Transition>
-        </div>
+      </div>
     );
 };
 
-export default CommentModal;
+export default AlertModal;

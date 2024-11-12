@@ -2,47 +2,61 @@ import { useQuery } from '@tanstack/react-query';
 import UserPostDataBox from './UserPostDataBox';
 import useAxiosPublic from '../../../../hook/useAxiosPublic';
 import Pagination from './Pagination';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {Link} from 'react-router-dom'
 
 
-const UsersPostData = ({setPostsData,postsData,search,}) => {
+const UsersPostData = ({setPostsData,postsData,search,category,setCountPage,countPage,itemsPerPage,setCurrentPage,currentPage}) => {
     const [loading,setloading]=useState(false)
     const axiosPublic=useAxiosPublic()
-    // ------------------
-    const [currentPage,setCurrentPage]=useState(1)
-    const [itemsPerPage,setItemsPerPage]=useState(5)
-    const [countPage,setCountPage]=useState(0)
+    // -------------------------------------------
+    // const [currentPage,setCurrentPage]=useState(1)
+    // const [itemsPerPage,setItemsPerPage]=useState(5)
+    // const [countPage,setCountPage]=useState(0)
+
+// -------------------------------
+
     // const search='Business & Finance'
     // ---------------
 // const [postsData,setPostsData]=useState([])
     // -------------------
 
-   
+  
 
 
-    const {data:postData=[],isLoading}=useQuery({
+    const {data:postData=[],isLoading,refetch}=useQuery({
            queryKey:['posts-Data',search],
            queryFn:async()=>{
-            const {data}=await axiosPublic(`/posts?page=${currentPage}&&size=${itemsPerPage}&&search=${search}`)
+            const {data}=await axiosPublic(`/posts?page=${currentPage}&&size=${itemsPerPage}&&search=${search}&&category=${category}`)
             console.log(data)
             setCountPage(data.totalCount)
-            setPostsData(data.result)
-          
-            return data.result
+            setPostsData(data.result)       
+            return data
            }
+          
+           
     })
+
+    console.log(postData)
+   
+
     // -----------------------pagination work ---------------
 
    const handlePaginationButton=async(value)=>{
     
     // console.log(value)
+    
+    
     try{
-        setloading(true)
-      await  setCurrentPage(value)
+       
+        setCurrentPage(value)
+        refetch()
+        
+      
     }
     catch(error){
         console.log(error.message)
+
     }
     finally{
         setloading(false)
@@ -77,7 +91,7 @@ const UsersPostData = ({setPostsData,postsData,search,}) => {
         currentPage={currentPage}
         pages={pages}
         numberOfpages={numberOfpages}
-        
+        setCurrentPage={setCurrentPage}
         />
         </div>
           
