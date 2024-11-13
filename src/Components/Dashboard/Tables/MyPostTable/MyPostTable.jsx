@@ -1,35 +1,47 @@
+// import { useQuery } from "@tanstack/react-query";
+// import useAxiosPublic from "../../../../hook/useAxiosPublic";
+// import { useState } from "react";
+// import CommentTableModal from "../../../Modal/CommentTableModal";
+import {Link} from 'react-router-dom'
 
+const MyPostTable = ({index,postData}) => {
+  // const [isOpen,setIsOpen]=useState(false)
+    // const axiosPublic=useAxiosPublic()
+    // console.log(postData._id)
 
-const MyPostTable = ({post,index}) => {
+    // const closeModal=()=>{
+    //   setIsOpen(false)
+    // }
+    // ------------handleCommentButton---------------
+    // const handleCommentButton=()=>{
+    //   setIsOpen(true)
+    // }
+ 
+  //  const {data=[]}=useQuery({
+  //   queryKey:['myCommentData'],
+  //   queryFn:async()=>{
+  //     const {data}=await axiosPublic(`/comments/${postData._id}`)
+  //     console.log(data)
+  //     return data
+  //   }
+  //  })
 
-    console.log({post,index})
 
     return (
-        <div className="overflow-x-auto">
-  <table className="table table-zebra">
-    {/* head */}
-    <thead>
-      <tr>
-        <th></th>
-        <th>post title</th>
-        <th>total vote count </th>
-        <th>comment</th>
-        <th>delete</th>
-      </tr>
-    </thead>
+       <>
     <tbody>
-      {/* row 1 */}
-      <tr>
-        <th>1</th>
-        <td>Cy Ganderton</td>
-        <td>Quality Control Specialist</td>
-        <td>Blue</td>
-        <td>Blue</td>
-      </tr>
-      
+       <tr >
+        <th>{index+1}</th>
+        <td>{postData.post_Title}</td>
+        <td>{postData.totalCount}</td>
+        <td className="hover:bg-gray-300"><Link to={`/comments/${postData._id}`}>Comment</Link></td>
+        <td className="hover:bg-gray-300"><button>Delete</button></td>
+      </tr>    
     </tbody>
-  </table>
-</div>
+    {/* <CommentTableModal
+    isOpen={isOpen}
+    closeModal={closeModal}/> */}
+    </>
     );
 };
 

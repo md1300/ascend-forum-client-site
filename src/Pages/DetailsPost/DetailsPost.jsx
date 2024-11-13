@@ -12,13 +12,45 @@ import AlertModal from "../../Components/Modal/AlertModal";
 const DetailsPost = () => {
     const {user}=useAuth()
     const {id}=useParams()
+    const axiosPublic=useAxiosPublic()
     const [isOpen,setIsOpen]=useState(false)
     const [alertIsOpen,setAlertIsOpen]=useState(false)
     const [upVoteCount, setUpVoteCount]=useState(false)
     const [downVoteCount, setDownVoteCount]=useState(false)
+    
+  
 
-   
+//    ------------ handleUpVote ------------
+const handleUpVote=async()=>{
+    setUpVoteCount(!upVoteCount);
+    setDownVoteCount(false)
+    const upVoteInfo={
+        action:'upVote',
+        post_Title:post_Title,
+    }
+    try{
+       const {data}=await axiosPublic.patch(`/posts/${_id}`,upVoteInfo)
+       console.log(data)
+    }
+    catch(error){
+        console.log(error.message)
+    }
+} 
 
+// ----------------handleDownVote -----------------
+const handleDownVote=async()=>{
+    setDownVoteCount(!downVoteCount);
+    setUpVoteCount(false)
+    try{
+        const {data}=await axiosPublic.patch(`/posts/${_id}`,{action:'downVote'})
+        console.log(data)
+        console.log('tawhid')
+     }
+     catch(error){
+         console.log(error.message)
+         console.log('tawhid')
+     }
+}
   
  
 
@@ -32,8 +64,8 @@ const DetailsPost = () => {
         setAlertIsOpen(false)
     }
 
+// ----------------post comment data in db ------------
 
-    const axiosPublic=useAxiosPublic()
     const {data:postDetails=[],isLoading}=useQuery({
         queryKey:['post-details'],
         queryFn:async()=>{
@@ -61,9 +93,9 @@ const DetailsPost = () => {
         <div className="flex items-center justify-between mt-4">
             {user? <button onClick={()=>setIsOpen(true)} className="text-blue-600 dark:text-blue-400 hover:underline btn bg-orange-300"  >comment</button> : <button onClick={()=>setAlertIsOpen(true)} className="text-blue-600 dark:text-blue-400 hover:underline btn bg-orange-300"  >comment</button> }
             
-            <button onClick={()=>{setUpVoteCount(!upVoteCount), setDownVoteCount(false)}} className={`text-blue-600 dark:text-blue-400 hover:underline btn ${upVoteCount? 'bg-red-300' : ''} ` } ><GrLike /></button>
+            <button onClick={handleUpVote} className={`text-blue-600 dark:text-blue-400 hover:underline btn ${upVoteCount? 'bg-red-300' : ''} ` } ><GrLike /></button>
 
-            <button onClick={()=>{setDownVoteCount(!downVoteCount),setUpVoteCount(false)}}  className={`text-blue-600 dark:text-blue-400 hover:underline btn ${downVoteCount? 'bg-red-300' : ''} ` }  ><GrDislike/></button>
+            <button onClick={handleDownVote}  className={`text-blue-600 dark:text-blue-400 hover:underline btn ${downVoteCount? 'bg-red-300' : ''} ` }  ><GrDislike/></button>
 
             <button  className="text-blue-600 dark:text-blue-400 hover:underline"  ><GoShareAndroid /></button>
     
@@ -77,6 +109,8 @@ const DetailsPost = () => {
         closeModal={closeModal}
        isOpen={isOpen}
        post_Title={post_Title}
+       _id={_id}
+       user={user}
        />
        <AlertModal
        alertCloseModal={alertCloseModal}

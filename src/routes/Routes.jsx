@@ -11,6 +11,7 @@ import MyProfile from "../Pages/Dashboard/Users/MyProfile";
 import MyPosts from "../Pages/Dashboard/Users/MyPosts";
 import PopularPost from "../Pages/PopularPost/PopularPost";
 import DetailsPost from "../Pages/DetailsPost/DetailsPost";
+import MyCommentsTable from "../Components/Dashboard/Tables/MyCommentsTable/MyCommentsTable";
 
 
 const router = createBrowserRouter([
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
   {
     path:'/popular-post',
     element:<PopularPost/>
+  },
+  {
+    path:'/comments/:id',
+    element:<MyCommentsTable/>
   },
   {
     path: 'dashboard',

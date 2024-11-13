@@ -7,9 +7,11 @@ import {
   } from '@headlessui/react'
   import { Fragment, useState } from 'react'
 import useAxiosPublic from '../../hook/useAxiosPublic';
-const CommentModal = ({closeModal,isOpen,post_Title}) => {
+const CommentModal = ({closeModal,isOpen,post_Title,_id,user}) => {
   const [comment,setComment]=useState('')
   const axiosPublic=useAxiosPublic()
+
+  
 
   const handleCommentText=(value)=>{
     setComment(value)
@@ -22,8 +24,10 @@ const CommentModal = ({closeModal,isOpen,post_Title}) => {
     const commentData={
       comment:comment,
       post_title:post_Title,
+      postId:_id,
       upVote:0,
       downVote:0,
+      commenter:user.email,
     }
     try{
            const {data}=await axiosPublic.post('/comment',commentData)
