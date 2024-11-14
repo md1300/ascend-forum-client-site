@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import logoImage from '../../../assets/logo.jpg'
 import UsersMenu from "./MenuItem/UsersMenu";
 import CommonMenu from "./MenuItem/CommonMenu";
+import AdminMenu from "./MenuItem/AdminMenu";
 
 
 const Sidbar = () => {
@@ -19,6 +20,9 @@ const Sidbar = () => {
             <div>
 
                 <UsersMenu />
+            </div>
+            <div>
+                <AdminMenu/>
             </div>
 
         </div>

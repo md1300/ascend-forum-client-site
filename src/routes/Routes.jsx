@@ -12,6 +12,10 @@ import MyPosts from "../Pages/Dashboard/Users/MyPosts";
 import PopularPost from "../Pages/PopularPost/PopularPost";
 import DetailsPost from "../Pages/DetailsPost/DetailsPost";
 import MyCommentsTable from "../Components/Dashboard/Tables/MyCommentsTable/MyCommentsTable";
+import AdminProfile from "../Pages/Dashboard/Admin/AdminProfile";
+import ManageUsers from "../Pages/Dashboard/Admin/ManageUsers";
+import Reports from "../Pages/Dashboard/Admin/Reports";
+import Announcement from "../Pages/Dashboard/Admin/Announcement";
 
 
 const router = createBrowserRouter([
@@ -30,8 +34,8 @@ const router = createBrowserRouter([
     ]
   },
   {
-    path:'/post-details/:id',
-    element:<DetailsPost/>
+    path: '/post-details/:id',
+    element: <DetailsPost />
   },
   {
     path: '/login',
@@ -42,12 +46,12 @@ const router = createBrowserRouter([
     element: <Signup />
   },
   {
-    path:'/popular-post',
-    element:<PopularPost/>
+    path: '/popular-post',
+    element: <PopularPost />
   },
   {
-    path:'/comments/:id',
-    element:<MyCommentsTable/>
+    path: '/comments/:id',
+    element: <MyCommentsTable />
   },
   {
     path: 'dashboard',
@@ -59,17 +63,33 @@ const router = createBrowserRouter([
         element: <Statistic />
       },
       {
-        path:'add-post',
-        element:<AddPost/>
+        path: 'add-post',
+        element: <AddPost />
       },
       {
-        path:'user-profile',
-        element:<MyProfile/>
+        path: 'user-profile',
+        element: <MyProfile />
       },
       {
-        path:'user-posts',
-        element:<MyPosts/>
+        path: 'user-posts',
+        element: <MyPosts />
       },
+      {
+        path: 'admin-profile',
+        element: <AdminProfile />
+      },
+      {
+        path: 'manage-users',
+        element: <ManageUsers />
+      },
+      {
+        path:'report-comments',
+        element:<Reports/>
+      },
+      {
+        path:'announcement',
+        element:<Announcement/>
+      }
     ]
   }
 ]);
