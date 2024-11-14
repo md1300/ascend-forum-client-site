@@ -9,13 +9,16 @@ const MyCommentsTable = () => {
   // console.log(id)
   // ---------------------------------------------
   const [isExtension, setIsExtension] = useState(false)
-  const [isShowDropdown,setIsShowDropdown]=useState(false)
-   
-  const handleDropdownButton=()=>{
-    setIsShowDropdown(!isShowDropdown)
+  const [isFeedBack, setIsFeedBack] = useState(false)
+  const [isReport, setIsReport] = useState(false)
+
+  const handleFeedBackInformation = () => {
+    setIsFeedBack(true)
   }
-  
-// --------------------- comment limitation ----------------
+
+  console.log(isFeedBack)
+  console.log(isReport)
+  // --------------------- comment limitation ----------------
   const textLimit = 20;
 
   const handleTextLimitation = (text) => {
@@ -66,30 +69,33 @@ const MyCommentsTable = () => {
                     isExtension ? ' show less' : ' read more'}</button>}
                 </td>)
               }
-               <td >
-<button className="btn" onClick={()=>document.getElementById('my_modal_1').showModal()}>feedback</button>
-<dialog id="my_modal_1" className="modal">
-  <div className="modal-box">
-   <ul className="flex flex-col">
-    <li className="btn ">Good Explanation</li>
-    <li className="btn "> inappropriate</li>
-    <li className="btn "> More Details Needed</li>
-   </ul>
-    <div className="modal-action">
-      <form method="dialog">
-        {/* if there is a button in form, it will close the modal */}
-        <button className="btn">Close</button>
-      </form>
-    </div>
-  </div>
-</dialog></td>
-              <td className="hover:bg-gray-300"><button>report</button></td>
+              <td >
+                <button className="btn" onClick={() => document.getElementById('my_modal_1').showModal()}>feedback</button>
+                <dialog id="my_modal_1" className="modal">
+                  <div className="modal-box">
+                    <ul className="flex flex-col" >
+                      <li className="btn" onClick={handleFeedBackInformation}>Good Explanation</li>
+                      <li className="btn" onClick={handleFeedBackInformation}> inappropriate</li>
+                      <li className="btn" onClick={handleFeedBackInformation}> More Details Needed</li>
+                    </ul>
+                    <div className="modal-action">
+                      <form method="dialog">
+                        {/* if there is a button in form, it will close the modal */}
+                        <button className="btn" >Close</button>
+                      </form>
+                    </div>
+                  </div>
+                </dialog></td>
+              <td ><button
+                disabled={isReport || !isFeedBack}
+                onClick={()=>setIsReport(true)}
+                className="btn">report</button></td>
             </tr>)
           }
 
         </tbody>
       </table>
-  
+
     </div>
   );
 };
