@@ -10,11 +10,6 @@ const Signup = () => {
     const {register,handleSubmit,formState:{errors}}=useForm();
  
 
-
- 
- 
-   
-
     const onSubmit=async(data)=>{
        const {email,password,name,photo}=data ;
        const image = photo[0];

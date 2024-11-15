@@ -16,6 +16,7 @@ import AdminProfile from "../Pages/Dashboard/Admin/AdminProfile";
 import ManageUsers from "../Pages/Dashboard/Admin/ManageUsers";
 import Reports from "../Pages/Dashboard/Admin/Reports";
 import Announcement from "../Pages/Dashboard/Admin/Announcement";
+import AnnouncementDetails from "../Pages/announcementDetails/AnnouncementDetails";
 
 
 const router = createBrowserRouter([
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
   {
     path: '/comments/:id',
     element: <MyCommentsTable />
+  },
+  {
+    path:'/announcement/:id',
+    element:<AnnouncementDetails/>
   },
   {
     path: 'dashboard',

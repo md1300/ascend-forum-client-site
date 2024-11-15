@@ -3,9 +3,13 @@ import logoImage from '../../../assets/logo.jpg'
 import UsersMenu from "./MenuItem/UsersMenu";
 import CommonMenu from "./MenuItem/CommonMenu";
 import AdminMenu from "./MenuItem/AdminMenu";
+import useRole from "../../../hook/useRole";
 
 
 const Sidbar = () => {
+    const [userData,isLoading]=useRole()
+    if(isLoading) return <div className="flex justify-center pt-40 "><span className="loading loading-spinner text-success "></span></div>
+
     return (
         <div>
             <div className="mb-5">
@@ -17,13 +21,13 @@ const Sidbar = () => {
             <div>
                 <CommonMenu />
             </div>
-            <div>
-
-                <UsersMenu />
-            </div>
-            <div>
+            {userData.role==='admin' ? <div>
                 <AdminMenu/>
-            </div>
+            </div> : <div>
+<UsersMenu />
+</div> }
+            
+            
 
         </div>
     );

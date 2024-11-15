@@ -70,14 +70,14 @@ const AuthProvider = ({children}) => {
 // -------save users information ---------------
    const saveUser=async(user)=>{
       const userInfo={
-         name:user.displayName,
-         email:user.email,
-         image:user.photoURL,
+         name:user?.displayName,
+         email:user?.email,
+         image:user?.photoURL,
          badge:'bronze',
          role:'user',
          status:'verified',
       }
-
+console.log(userInfo)
       await mutateAsync(userInfo)
    }
 

@@ -2,6 +2,7 @@ import useRole from "../../../hook/useRole";
 
 
 const MyProfile = () => {
+  
     const [userData,isLoading]=useRole()
     if(isLoading) return <div className="flex justify-center pt-40 "><span className="loading loading-spinner text-success "></span></div>
     return (

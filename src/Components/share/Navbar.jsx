@@ -2,11 +2,14 @@ import { Link, NavLink } from "react-router-dom";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import logoImage from '../../assets/logo.jpg';
 import useAuth from '../../hook/useAuth'
+import { useQuery } from "@tanstack/react-query";
+import useAxiosPublic from "../../hook/useAxiosPublic";
 // import { useState } from "react";
 
 const Navbar = () => {
   const { user,logOut } = useAuth()
   // const [isOpen, setIsOpen] = useState(false)
+  const axiosPublic=useAxiosPublic()
 
   // console.log(user)
   const navLink = <>
@@ -17,6 +20,22 @@ const Navbar = () => {
   const handleLogOut=async()=>{
     await logOut ()
   }
+
+const {data:announcements={}}=useQuery({
+  queryKey:['announcement'],
+  queryFn:async()=>{
+    const {data}=await axiosPublic('/announcements')
+    // console.log(data)
+    return data
+  }
+})
+console.log(announcements)
+// console.log(announcements.result)
+
+const arrayOfAnnouncement=announcements.result || [];
+console.log(arrayOfAnnouncement)
+
+
   return (
 <div className="navbar bg-base-100">
   <div className="navbar-start">
@@ -33,25 +52,31 @@ const Navbar = () => {
 
 
   <div className="navbar-end">
-    <div className="dropdown dropdown-end">
+    {announcements.totalAnnouncement>0 && <div className="dropdown dropdown-end">
       <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
         <div className="indicator">
           <IoMdNotificationsOutline className="text-2xl"/>
-          <span className="badge badge-sm indicator-item">8</span>
+          <span className="badge badge-sm indicator-item">{announcements.totalAnnouncement}</span>
         </div>
       </div>
       <div
         tabIndex={0}
         className="card card-compact dropdown-content bg-base-100 z-[1] mt-3 w-52 shadow">
-        <div className="card-body">
-          <span className="text-lg font-bold">8 Items</span>
-          <span className="text-info">Subtotal: $999</span>
-          <div className="card-actions">
-            <button className="btn btn-primary btn-block">View cart</button>
-          </div>
-        </div>
+          {
+            arrayOfAnnouncement.map(data=><div key={data._id} className="card-body">
+              <span className="text-lg font-bold">{data.title }</span>
+           <p>{data._id}</p>
+              <div className="card-actions">
+                <Link to={`/announcement/${data._id}`}  className="btn btn-primary btn-block">View description</Link>
+              </div>
+            </div>)
+          }
+         
+        
       </div>
-    </div>
+    </div> }
+    
+    
     <div className="dropdown dropdown-end">
       {
         user?<div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
