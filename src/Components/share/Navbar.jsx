@@ -40,8 +40,7 @@ console.log(arrayOfAnnouncement)
 <div className="navbar bg-base-100">
   <div className="navbar-start">
     <div className="w-16  rounded-lg"><img src={logoImage} alt="logo" /></div>
-    <a className="btn btn-ghost text-xl text-orange-300">ASCEND-FORUM</a>
-    
+    <a className="btn btn-ghost text-xl text-orange-300">ASCEND-FORUM</a>   
   </div>
 
  <div className="navbar-center ">
@@ -49,7 +48,6 @@ console.log(arrayOfAnnouncement)
     {navLink}
   </ul>
  </div>
-
 
   <div className="navbar-end">
     {announcements.totalAnnouncement>0 && <div className="dropdown dropdown-end">
@@ -65,18 +63,15 @@ console.log(arrayOfAnnouncement)
           {
             arrayOfAnnouncement.map(data=><div key={data._id} className="card-body">
               <span className="text-lg font-bold">{data.title }</span>
-           <p>{data._id}</p>
               <div className="card-actions">
                 <Link to={`/announcement/${data._id}`}  className="btn btn-primary btn-block">View description</Link>
               </div>
             </div>)
           }
-         
-        
+                
       </div>
     </div> }
-    
-    
+        
     <div className="dropdown dropdown-end">
       {
         user?<div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
@@ -109,10 +104,7 @@ console.log(arrayOfAnnouncement)
     </div>
   </div>
 </div>
-
-    
- 
-    
+   
   );
 };
 
