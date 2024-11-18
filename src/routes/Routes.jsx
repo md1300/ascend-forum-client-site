@@ -17,12 +17,15 @@ import ManageUsers from "../Pages/Dashboard/Admin/ManageUsers";
 import Reports from "../Pages/Dashboard/Admin/Reports";
 import Announcement from "../Pages/Dashboard/Admin/Announcement";
 import AnnouncementDetails from "../Pages/announcementDetails/AnnouncementDetails";
+import ErrorPage from "../Pages/ErrorPage/ErrorPage";
+import PrivateRoute from "./PrivateRoute";
 
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Main />,
+    errorElement:<ErrorPage/>,
     children: [
       {
         index: true,
@@ -30,7 +33,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/membership',
-        element: <MemberShip />
+        element: <PrivateRoute><MemberShip /></PrivateRoute>
       },
     ]
   },
@@ -60,7 +63,7 @@ const router = createBrowserRouter([
   },
   {
     path: 'dashboard',
-    element: <Dashboard />,
+    element: <PrivateRoute><Dashboard /></PrivateRoute>,
     children: [
       //  ---------- route for users --------------
       {

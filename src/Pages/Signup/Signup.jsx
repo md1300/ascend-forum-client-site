@@ -1,13 +1,18 @@
 import { useForm } from "react-hook-form";
 import { uploadImage } from "../../imageApi/ImageApi";
 import useAuth from "../../hook/useAuth";
-import { Link } from "react-router-dom";
-
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import toast from 'react-hot-toast';
+import useAxiosPublic from "../../hook/useAxiosPublic";
 
 
 const Signup = () => {
   const {signup,updateUsersProfile,googleSignUp,loading,setLoading}=useAuth();
     const {register,handleSubmit,formState:{errors}}=useForm();
+    const navigation=useNavigate()
+ const location=useLocation();
+ const from=location.state || ('/')
+ const axiosPublic=useAxiosPublic()
  
 
     const onSubmit=async(data)=>{
@@ -23,14 +28,18 @@ const Signup = () => {
          
           const image_url =await uploadImage(image)
 
-          console.log(image_url)
+          // console.log(image_url)
        const {user}=await signup(email,password)
-         console.log(user)
+        //  console.log(user)
          await updateUsersProfile(name,image_url)
-       
+        const {data}=await axiosPublic.post('/jwt',user.email,)
+        console.log(data)
+         navigation(from)
+         toast.success('signUp successfully')
         }
         catch(error){
           console.log(error.message)
+          toast.error(error.message)
         } 
         finally{
           setLoading(false)
@@ -40,10 +49,15 @@ const Signup = () => {
     const handleGoogleSignUp=async()=>{
       try{
         const {user}= await googleSignUp()
-        console.log(user)
+        // console.log(user)
+        const {data}= await axiosPublic.post('/jwt',user.email,{withCredentials:'include'})
+        console.log(data)
+        navigation(from)
+        toast('successfully log in ')
       }
       catch(error){
         console.log(error.message)
+        toast(error.message)
       }
       finally{
         setLoading(false)

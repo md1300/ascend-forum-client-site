@@ -3,6 +3,7 @@ import { app } from "../firebase/firebase.config";
 import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import useAxiosPublic from "../hook/useAxiosPublic";
 import {useMutation }from '@tanstack/react-query'
+import axios from "axios";
 
 
 export const AuthContext=createContext(null)
@@ -38,26 +39,15 @@ const AuthProvider = ({children}) => {
        })
      }
 
-     const logOut=()=>{
+     const logOut=async()=>{
+      setLoading(true)
+      await axios.get(`${import.meta.env.VITE_API_URL}/logout`, {
+         withCredentials: true,
+       })
       return signOut(auth)
      }
- 
 
-   //  on auth state Change -------------
-   useEffect(()=>{
-      const unSubscribe=onAuthStateChanged(auth,(currentUser)=>{
-         console.log(currentUser)
-         setUser(currentUser)
-         if(currentUser){
-            saveUser(currentUser)
-         }
-         
-         setLoading(false)        
-      })
-      return ()=>{
-         unSubscribe()
-      }
-   },[])
+
 
    // --------------- take  users in usersCollection db --------------
 
@@ -80,8 +70,26 @@ const AuthProvider = ({children}) => {
 console.log(userInfo)
       await mutateAsync(userInfo)
    }
+ 
 
-    
+   //  on auth state Change -------------
+   useEffect(()=>{
+      const unSubscribe=onAuthStateChanged(auth,(currentUser)=>{
+         console.log(currentUser)
+         setUser(currentUser)
+         if(currentUser){
+            
+            saveUser(currentUser)
+         }
+         
+         setLoading(false)        
+      })
+      return ()=>{
+         unSubscribe()
+      }
+   },[])
+
+  
 
     const authInfo={
       signup,

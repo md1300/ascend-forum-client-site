@@ -1,12 +1,19 @@
 import { useForm, } from "react-hook-form"
 import useAuth from "../../hook/useAuth";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import toast from 'react-hot-toast'
+
+import useAxiosPublic from "../../hook/useAxiosPublic";
 
 
 
 
 const Login = () => {
-  const {signin,googleSignUp,loading}=useAuth()
+  const {signin,googleSignUp,loading,setLoading}=useAuth()
+  const navigation=useNavigate();
+  const location=useLocation();
+  const from=location?.state || '/'
+  const axiosPublic=useAxiosPublic()
   // console.log(signin)
    const {register, formState: { errors },handleSubmit,}=useForm()
 
@@ -16,9 +23,19 @@ const Login = () => {
     try{
         const {user}=await signin(email,password)
         console.log(user)
+        if(user.email){
+          const {data}=await axiosPublic.post('/jwt',user.email,)
+        console.log(data)
+          navigation(from)
+          toast.success('successfully log in ')
+        }
     }
     catch(error){
       console.log(error.message)
+      toast.error(error.message)
+    }
+    finally{
+      setLoading(false)
     }
    }
 
@@ -26,9 +43,16 @@ const Login = () => {
     try{
       const {user}= await googleSignUp()
       console.log(user)
+        navigation(from)
+        toast.success('successfully log in ')
+     
     }
     catch(error){
       console.log(error.message)
+      toast.error(error.message)
+    }
+    finally{
+      setLoading(false)
     }
    }
 

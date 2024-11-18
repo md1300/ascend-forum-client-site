@@ -21,7 +21,7 @@ const Sidbar = () => {
             <div>
                 <CommonMenu />
             </div>
-            {userData.role==='admin' ? <div>
+            {userData?.role==='admin' ? <div>
                 <AdminMenu/>
             </div> : <div>
 <UsersMenu />

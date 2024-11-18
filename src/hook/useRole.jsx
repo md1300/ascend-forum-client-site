@@ -8,8 +8,8 @@ const axiosPublic=useAxiosPublic()
 
         queryKey:['user'],
         queryFn:async()=>{
-          const {data}=await axiosPublic(`/users/${user?.email}`)
-        //   console.log(data)
+          const {data}=await axiosPublic(`/users/${user?.email}`,{withCredentials:true})
+          // console.log(data)
           return data
         }
     })
